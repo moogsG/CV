@@ -18,7 +18,7 @@ router.use(cookieSession({
 }));
 /* GET home page. */
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
 
   if (!req.session.username) {
     req.session.username = null;
@@ -27,7 +27,7 @@ router.get('/', function(req, res) {
   knex('maps').select()
     .then((maps) => {
 
-      let templateVars = {
+      const templateVars = {
         user: req.session.username,
         userId: req.session.userid,
         maps: maps
@@ -44,20 +44,21 @@ module.exports = router;
 * Lets Users favorite a map and sends a post request to the server to update it
 * Heavily used data attributes in this project
 */
-$('#favoriteMap').on('click', function(event) {
-  event.preventDefault();
-  var mapID = $(this).attr('mapId');
-  var user = $(this).attr('user');
-  var values = {
-    user_id: user,
-    map_id: mapID
-  }
-  $.post('/users/favorite', values)
-    .done(function() {
-      $('#favoriteMap').removeClass('btn-primary').addClass('btn-favorite');
-    })
+ $(function() {
+  $('#favoriteMap').on('click', function(event) {
+    event.preventDefault();
+    var mapID = $(this).attr('mapId');
+    var user = $(this).attr('user');
+    var values = {
+      user_id: user,
+      map_id: mapID
+    }
+    $.post('/users/favorite', values)
+      .done(function() {
+        $('#favoriteMap').removeClass('btn-primary').addClass('btn-favorite');
+      })
+  });
 });
-
 /* Unit Testing
 * https://github.com/moogsG/jungle-rails/blob/master/spec/models/user_spec.rb
 * Done in rails with RSpec
@@ -102,14 +103,8 @@ end
 Setting state in React with promises and the spread operator
 */
 onStateChange(newState) {
-  Promise.resolve(this.setState({
-    ...newState
-  })).then(() => {
-    let pubKey = SHA256(this.state.privKey).toString();
+  this.setState({...newState}, () => {
+    const pubKey = SHA256(this.state.privKey).toString();
     this.setState({pubKey});
-  });
-  $('.box').removeClass('hvr-buzz-out')
-  $('.block').removeClass('hvr-buzz-out')
-  $('.alert-danger').addClass('display-none');
-  $('.empty-block').addClass('display-none');
+  })
 }
