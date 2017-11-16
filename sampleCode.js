@@ -47,9 +47,9 @@ module.exports = router;
  $(function() {
   $('#favoriteMap').on('click', function(event) {
     event.preventDefault();
-    var mapID = $(this).attr('mapId');
-    var user = $(this).attr('user');
-    var values = {
+    const mapID = $(this).attr('mapId');
+    const user = $(this).attr('user');
+    const values = {
       user_id: user,
       map_id: mapID
     }
@@ -100,7 +100,7 @@ end
 
 /* StateChange function from react project
 * https://github.com/moogsG/blockheads/blob/master/src/App.jsx
-Setting state in React with promises and the spread operator
+Setting state in React.  Not that proud of this messy project, we have plans to switch to redux.
 */
 onStateChange(newState) {
   this.setState({...newState}, () => {
