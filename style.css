@@ -151,11 +151,9 @@ a:hover {
 .employers {
   display: flex;
    flex-direction: column;
-
-   min-height: 1250px;
 }
 
 .employment {
   margin: auto;
-  height: 400px;
+  height: 325px;
 }
